@@ -1,4 +1,4 @@
-package br.nom.rakio.prjmc.resources;
+package br.nom.rakio.prjmc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
