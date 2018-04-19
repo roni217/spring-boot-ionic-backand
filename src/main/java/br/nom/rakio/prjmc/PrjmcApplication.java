@@ -13,6 +13,7 @@ import br.nom.rakio.prjmc.domain.Cidade;
 import br.nom.rakio.prjmc.domain.Cliente;
 import br.nom.rakio.prjmc.domain.Endereco;
 import br.nom.rakio.prjmc.domain.Estado;
+import br.nom.rakio.prjmc.domain.ItemPedido;
 import br.nom.rakio.prjmc.domain.Pagamento;
 import br.nom.rakio.prjmc.domain.PagamentoComBoleto;
 import br.nom.rakio.prjmc.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import br.nom.rakio.prjmc.repositories.CidadeRepository;
 import br.nom.rakio.prjmc.repositories.ClienteRepository;
 import br.nom.rakio.prjmc.repositories.EnderecoRepository;
 import br.nom.rakio.prjmc.repositories.EstadoRepository;
+import br.nom.rakio.prjmc.repositories.ItemPedidoRepository;
 import br.nom.rakio.prjmc.repositories.PagamentoRepository;
 import br.nom.rakio.prjmc.repositories.PedidoRepository;
 import br.nom.rakio.prjmc.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class PrjmcApplication implements CommandLineRunner{
 	
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PrjmcApplication.class, args);
@@ -119,5 +124,18 @@ public class PrjmcApplication implements CommandLineRunner{
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1.0, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2.0, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 300.00, 1.0, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 	}
 }
