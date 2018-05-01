@@ -33,8 +33,8 @@ public class PrjmcApplicationTests {
 	public void contextLoads() {
 		categoria.setId(1);
 		categoria.setNome("rei");
-		Mockito.when(service.buscar(1)).thenReturn(categoria);
-		Categoria findById = service.buscar(1);
+		Mockito.when(service.find(1)).thenReturn(categoria);
+		Categoria findById = service.find(1);
 		
 		String nome = findById.getNome();
 		System.out.println(nome);
