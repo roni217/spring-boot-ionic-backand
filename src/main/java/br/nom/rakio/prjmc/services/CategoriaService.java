@@ -5,12 +5,15 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import br.nom.rakio.prjmc.domain.Categoria;
 import br.nom.rakio.prjmc.repositories.CategoriaRepository;
 import br.nom.rakio.prjmc.services.exceptions.DataIntegrityException;
 import br.nom.rakio.prjmc.services.exceptions.ObjectNotFoundException;
+import org.springframework.data.domain.Sort.Direction;
 
 @Service
 public class CategoriaService {
@@ -43,12 +46,15 @@ public class CategoriaService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos");
 		}
-		
-
 	}
 
 	public List<Categoria> findAll() {
 		
 		return repo.findAll();
+	}
+	
+	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAll(pageRequest);
 	}
 }
