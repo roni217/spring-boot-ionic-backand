@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import br.nom.rakio.prjmc.domain.Categoria;
+import br.nom.rakio.prjmc.dto.CategoriaDTO;
 import br.nom.rakio.prjmc.repositories.CategoriaRepository;
 import br.nom.rakio.prjmc.services.exceptions.DataIntegrityException;
 import br.nom.rakio.prjmc.services.exceptions.ObjectNotFoundException;
@@ -56,5 +57,9 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 }
