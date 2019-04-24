@@ -3,10 +3,11 @@ package br.nom.rakio.prjmc.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import br.nom.rakio.prjmc.domain.enums.EstadoPagamento;
 
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento  implements Serializable {
 	private static final long serialVersionUID = 1L;
 
