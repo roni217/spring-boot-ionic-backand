@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.nom.rakio.prjmc.services.DBService;
+import br.nom.rakio.prjmc.services.EmailService;
+import br.nom.rakio.prjmc.services.SmtpEmailService;
 
 @Configuration
 @Profile("dev")
@@ -29,5 +31,10 @@ public class DevConfig {
 			
 		dbService.instanciateTesteDatabase();
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
 	}
 }
